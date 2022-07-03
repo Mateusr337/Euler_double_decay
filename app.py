@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 
 # definindo lambda1 = 2 e lamda2 = 4
 
-lamb_one = 4.56 * (10 ** (-3))
-lamb_two = 0.05
+lamb_one = 0.0105
+lamb_two = 1.7503 * (10 ** (-3))
 
-delta_t = 0.0001
+delta_t = 0.001
 final_interval_t = 330
 f0_one = 11.35
 f0_two = 0
@@ -26,12 +26,11 @@ def f_line_two(fx_one, fx_two):
 
 
 def f_n2(t):
-    return lamb_one * f0_one * np.exp(-lamb_one * t) / (lamb_two)
-
-# f(x0 + ∆x) = f(x0) + f'(x0)∆x
+    return (f0_one * lamb_one / (lamb_two - lamb_one)) * (np.exp(-lamb_one * t) - np.exp(-lamb_two * t))
 
 
 def euler_method(f0_one, f0_two, delta_x, steps, f_line_one, f_line_two):
+     # f(x0 + ∆x) = f(x0) + f'(x0)∆x
     results_one = [f0_one]
     results_two = [f0_two]
 
@@ -59,23 +58,22 @@ euler = euler_method(f0_one, f0_two, delta_t, steps, f_line_one, f_line_two)
 analytical = []
 for t in steps:
     analytical.append(f_n2(t))
-analytical[0] = 0
 
-plt.plot(steps, euler['one'])
-plt.plot(steps, (euler['two']))
-plt.title('Decaimento Radioativo')
-plt.xlabel('Time')
-plt.ylabel('Massa do elemento')
-plt.legend(["Função 1 (n1)", "Função 2 (n2)"])
-plt.savefig("decaimento-radioativo.png", dpi=100)
-plt.show()
-
-
-# plt.plot(steps, euler_10)
+# plt.plot(steps, euler['one'])
+# plt.plot(steps, (euler['two']))
 # plt.title('Decaimento Radioativo')
 # plt.xlabel('Time')
 # plt.ylabel('Massa do elemento')
 # plt.legend(["Função 1 (n1)", "Função 2 (n2)"])
+# plt.savefig("decaimento-radioativo.png", dpi=100)
+# plt.show()
+
+
+# plt.plot(steps, np.multiply(euler['two'], 10))
+# plt.title('Decaimento Radioativo')
+# plt.xlabel('Time')
+# plt.ylabel('Massa do elemento')
+# plt.legend(["Função 2 (n2 * 10)"])
 # plt.savefig("decaimento-radioativo-10n2.png", dpi=100)
 # plt.show()
 
@@ -88,3 +86,21 @@ plt.show()
 # plt.legend(["analitical", "Função 2 (n2)"])
 # plt.savefig("decaimento-radioativo-comparação-erro.png", dpi=100)
 # plt.show()
+
+
+delta_t_2 = delta_t * 10000
+steps_2 = np.arange(0, final_interval_t + delta_t_2, delta_t_2)
+euler_2 = euler_method(f0_one, f0_two, delta_t_2,
+                       steps_2, f_line_one, f_line_two)
+
+
+plt.plot(steps, analytical)
+plt.plot(steps, euler['two'], "--")
+plt.plot(steps_2, euler_2['two'])
+plt.title('Decaimento Radioativo')
+plt.xlabel('Time')
+plt.ylabel('Massa do elemento')
+plt.legend(["analitical", "Função 2 (n2) - delta t: {0}".format(
+    delta_t), "Função 2 (n2) - delta t: {0}".format(delta_t_2)])
+plt.savefig("decaimento-radioativo-comparação-erro.png", dpi=100)
+plt.show()
