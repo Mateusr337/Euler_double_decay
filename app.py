@@ -78,7 +78,7 @@ plt.savefig("decaimento-radioativo-10n2.png", dpi=100)
 plt.show()
 
 
-plt.plot(steps, analytical, "--")
+plt.plot(steps, analytical)
 plt.plot(steps, euler['two'], "--")
 plt.title('Decaimento Radioativo')
 plt.xlabel('Time')
@@ -94,7 +94,7 @@ euler_2 = euler_method(f0_one, f0_two, delta_t_2,
                        steps_2, f_line_one, f_line_two)
 
 
-plt.plot(steps, analytical, "--")
+plt.plot(steps, analytical)
 plt.plot(steps, euler['two'], "--")
 plt.plot(steps_2, euler_2['two'])
 plt.title('Decaimento Radioativo')
