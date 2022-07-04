@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # definindo lambda1 = 2 e lamda2 = 4
 
 lamb_one = 0.0105
-lamb_two = 1.7503 * (10 ** (-3))
+lamb_two = 0.1155
 
 delta_t = 0.001
 final_interval_t = 330
@@ -88,7 +88,7 @@ plt.savefig("decaimento-radioativo-comparação-erro.png", dpi=100)
 plt.show()
 
 
-delta_t_2 = delta_t * 10000
+delta_t_2 = delta_t * 1000
 steps_2 = np.arange(0, final_interval_t + delta_t_2, delta_t_2)
 euler_2 = euler_method(f0_one, f0_two, delta_t_2,
                        steps_2, f_line_one, f_line_two)
