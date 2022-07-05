@@ -4,14 +4,12 @@ import matplotlib.pyplot as plt
 # Resolução, estudo e erro do problema de decaimento duplo, usando o algoritmo de Euler.
 # O evolução das quantidades dos material radiativos estão regidas pelas seguintes equações:
 
-# definindo lambda1 = 2 e lamda2 = 4
-
 lamb_one = 0.0105
 lamb_two = 0.1155
 
 delta_t = 0.001
 final_interval_t = 330
-f0_one = 11.35
+f0_one = 1
 f0_two = 0
 
 steps = np.arange(0, final_interval_t + delta_t, delta_t)
